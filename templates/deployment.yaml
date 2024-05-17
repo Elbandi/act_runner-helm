@@ -53,7 +53,7 @@ spec:
             - name: DOCKER_CERT_PATH
               value: /certs/client
             - name: DOCKER_TLS_VERIFY
-              value: "1"
+              value: "{{ .Values.act_runner.tls_verify }}"
             - name: GITEA_INSTANCE_URL
               value: {{ .Values.act_runner.instance }}
             - name: GITEA_RUNNER_MAX_PARALLEL_JOBS

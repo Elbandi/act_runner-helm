@@ -71,6 +71,7 @@ act_runner:
   storage:
     size: 1024Mi
   instance: "https://gitea.example.com"
+  tls_verify: 1
   parallel_jobs: 2
   token: ""
   existingToken: ""
