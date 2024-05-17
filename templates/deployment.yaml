@@ -83,8 +83,8 @@ spec:
         - name: act-runner-dind
           securityContext:
             privileged: true
-          image: docker:23.0.6-dind
-          imagePullPolicy: IfNotPresent
+          image: "{{ .Values.imageDind.repository }}:{{ .Values.imageDind.tag }}"
+          imagePullPolicy: {{ .Values.imageDind.pullPolicy }}
           env:
             - name: DOCKER_TLS_CERTDIR
               value: /certs

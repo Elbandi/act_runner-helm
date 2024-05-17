@@ -10,6 +10,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: 0.2.9
 
+imageDind:
+  repository: docker
+  pullPolicy: IfNotPresent
+  tag: 23.0.6-dind
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
