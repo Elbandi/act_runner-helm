@@ -85,6 +85,12 @@ spec:
             privileged: true
           image: "{{ .Values.imageDind.repository }}:{{ .Values.imageDind.tag }}"
           imagePullPolicy: {{ .Values.imageDind.pullPolicy }}
+        {{- if .Values.imageDind.command }}
+          command:
+          {{- range .Values.imageDind.command }}
+            - {{ . }}
+          {{- end }}
+        {{- end}}
           env:
             - name: DOCKER_TLS_CERTDIR
               value: /certs
