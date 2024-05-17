@@ -93,6 +93,9 @@ spec:
             mountPath: /certs
           - name: docker-graph-storage
             mountPath: /var/lib/docker
+          {{- with .Values.act_runner.extraVolumeMounts }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
       volumes:
         - name: docker-certs
           emptyDir: {}
