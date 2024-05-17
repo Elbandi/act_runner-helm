@@ -94,6 +94,9 @@ spec:
           env:
             - name: DOCKER_TLS_CERTDIR
               value: /certs
+            {{- with .Values.act_runner.dindEnv }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
           volumeMounts:
           - name: docker-certs
             mountPath: /certs
