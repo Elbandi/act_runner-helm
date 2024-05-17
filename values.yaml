@@ -67,6 +67,7 @@ tolerations: []
 affinity: {}
 
 act_runner:
+  docker_host: "tcp://localhost:2376"
   storageclass: "default"
   storage:
     size: 1024Mi

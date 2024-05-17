@@ -49,7 +49,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: DOCKER_HOST
-              value: "tcp://localhost:2376"
+              value: "{{ .Values.act_runner.docker_host }}"
             - name: DOCKER_CERT_PATH
               value: /certs/client
             - name: DOCKER_TLS_VERIFY
