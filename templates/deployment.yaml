@@ -50,10 +50,12 @@ spec:
           env:
             - name: DOCKER_HOST
               value: "{{ .Values.act_runner.docker_host }}"
+            {{- if not (hasPrefix "unix://" .Values.act_runner.docker_host) }}
             - name: DOCKER_CERT_PATH
               value: /certs/client
             - name: DOCKER_TLS_VERIFY
               value: "{{ .Values.act_runner.tls_verify }}"
+            {{- end }}
             - name: GITEA_INSTANCE_URL
               value: {{ .Values.act_runner.instance }}
             - name: GITEA_RUNNER_MAX_PARALLEL_JOBS
@@ -73,8 +75,10 @@ spec:
                   {{- end }}
                   key: act-runner-token
           volumeMounts:
+            {{- if not (hasPrefix "unix://" .Values.act_runner.docker_host) }}
             - name: docker-certs
               mountPath: /certs
+            {{- end }}
             - name: {{ include "act_runner.fullname" . }}-pvc
               mountPath: /data
             {{- with .Values.act_runner.extraVolumeMounts }}
@@ -92,22 +96,28 @@ spec:
           {{- end }}
         {{- end}}
           env:
+            {{- if not (hasPrefix "unix://" .Values.act_runner.docker_host) }}
             - name: DOCKER_TLS_CERTDIR
               value: /certs
+            {{- end }}
             {{- with .Values.act_runner.dindEnv }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
+            {{- if not (hasPrefix "unix://" .Values.act_runner.docker_host) }}
           - name: docker-certs
             mountPath: /certs
+            {{- end }}
           - name: docker-graph-storage
             mountPath: /var/lib/docker
           {{- with .Values.act_runner.extraVolumeMounts }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
       volumes:
+        {{- if not (hasPrefix "unix://" .Values.act_runner.docker_host) }}
         - name: docker-certs
           emptyDir: {}
+        {{- end }}
         - name: docker-graph-storage
           emptyDir: {}
         {{- with .Values.extraVolumes }}
